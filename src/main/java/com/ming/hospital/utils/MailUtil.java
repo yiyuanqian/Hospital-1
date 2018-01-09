@@ -9,16 +9,27 @@ import com.ming.hospital.pojo.User;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.Properties;
 /**
  * Created by Ming on 2017/8/24.
  */
 public class MailUtil extends Thread  {
+
+    private static String link;
     private User user;
-    private String link;
+    static {
+        Properties properties = new Properties();
+        try {
+            properties.load(MailUtil.class.getResourceAsStream("/config.properties"));
+            String myId = (String) properties.get("my_id");
+            link = myId;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public MailUtil(User user) {
         this.user = user;
-        this.link = link;
     }
 
     @Override
@@ -44,7 +55,7 @@ public class MailUtil extends Thread  {
             message.setSubject("医者天下注册激活邮件");
             String html = "<h2>亲爱的"+user.getName()+"用户你好：</h2><br/>";
             html += "&nbsp&nbsp恭喜你的账号："+user.getUser()+" 注册成功！请48小时内，点击此链接激活" +
-                    "<a href = 'http://localhost:8080/Healerworld/user/active/"+user.getCode()+"'>"
+                    "<a href = 'http://"+link+"/Healerworld/user/active/"+user.getCode()+"'>"
                     +user.getCode()+"</a>";
             message.setContent(html,"text/html;charset=utf-8");
             Transport.send(message);
