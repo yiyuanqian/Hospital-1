@@ -46,7 +46,7 @@ public class UserController {
         if(code != null){
             boolean active = userService.active(code);
             if(active){
-                return "index";
+                return "redirect:/";
             }else {
                 model.addAttribute("msg","激活邮箱失败！您的激活码可能超过48小时！请重新注册！");
             }

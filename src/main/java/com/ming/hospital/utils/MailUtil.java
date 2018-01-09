@@ -22,8 +22,8 @@ public class MailUtil extends Thread  {
         Properties properties = new Properties();
         try {
             properties.load(MailUtil.class.getResourceAsStream("/config.properties"));
-            String myId = (String) properties.get("my_id");
-            link = myId;
+            String my_ip = (String) properties.get("my_ip");
+            link = my_ip;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class MailUtil extends Thread  {
             message.setSubject("医者天下注册激活邮件");
             String html = "<h2>亲爱的"+user.getName()+"用户你好：</h2><br/>";
             html += "&nbsp&nbsp恭喜你的账号："+user.getUser()+" 注册成功！请48小时内，点击此链接激活" +
-                    "<a href = 'http://"+link+"/Healerworld/user/active/"+user.getCode()+"'>"
+                    "<a href = 'http://"+link+"/Hospital/user/active/"+user.getCode()+"'>"
                     +user.getCode()+"</a>";
             message.setContent(html,"text/html;charset=utf-8");
             Transport.send(message);
