@@ -53,6 +53,7 @@ public class CommonUtils {
     }
     @Test
     public  void  MD5(){
+
         //盐值
         String salt = "12u3jk125b1389adnsann9./,/.129012";
         String base = "123456" + "/" + salt;
